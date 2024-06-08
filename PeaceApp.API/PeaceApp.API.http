@@ -1,0 +1,6 @@
+@PeaceApp.API_HostAddress = http://localhost:5298
+
+GET {{PeaceApp.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
