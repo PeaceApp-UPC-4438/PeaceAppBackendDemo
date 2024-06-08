@@ -1,5 +1,6 @@
 using EntityFrameworkCore.CreatedUpdatedDate.Extensions;
 using Microsoft.EntityFrameworkCore;
+using PeaceApp.API.Communication.Domain.Model.Aggregates;
 using PeaceApp.API.Report.Domain.Model.Aggregates;
 using PeaceApp.API.Shared.Infrastructure.Persistence.EFC.Configuration.Extensions;
 
@@ -24,6 +25,11 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
         builder.Entity<ReportManagement>().Property(f => f.Id).IsRequired().ValueGeneratedOnAdd();
         builder.Entity<ReportManagement>().Property(f => f.KindOfReport).IsRequired();
         builder.Entity<ReportManagement>().Property(f => f.Description).IsRequired();
+        builder.Entity<Notification>().ToTable("Notifications");
+        builder.Entity<Notification>().HasKey(n => n.Id);
+        builder.Entity<Notification>().Property(n => n.Id).IsRequired().ValueGeneratedOnAdd();
+        builder.Entity<Notification>().Property(n => n.Message).IsRequired();
+        builder.Entity<Notification>().Property(n => n.Priority).IsRequired();
         // Apply SnakeCase Naming Convention
         builder.UseSnakeCaseWithPluralizedTableNamingConvention();
     }
