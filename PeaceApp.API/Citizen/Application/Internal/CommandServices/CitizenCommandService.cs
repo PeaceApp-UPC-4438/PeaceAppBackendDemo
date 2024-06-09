@@ -6,20 +6,61 @@ using PeaceApp.API.Shared.Domain.Repositories;
 
 namespace PeaceApp.API.Citizen.Application.Internal.CommandServices;
 
-public class CitizenCommandService(ICitizenRepository profileRepository, IUnitOfWork unitOfWork) : ICitizenCommandService
+public class CitizenCommandService(ICitizenRepository citizenRepository, IUnitOfWork unitOfWork) : ICitizenCommandService
 {
     public async Task<Domain.Model.Aggregates.Citizen?> Handle(CreateCitizenAccountCommand command)
     {
         var citizen = new Domain.Model.Aggregates.Citizen(command);
         try
         {
-            await profileRepository.AddAsync(citizen);
+            await citizenRepository.AddAsync(citizen);
             await unitOfWork.CompleteAsync();
             return citizen;
-        } catch (Exception e)
+        } 
+        catch (Exception e)
         {
             Console.WriteLine($"An error occurred while creating the profile for Citizen: {e.Message}");
             return null;
+        }
+    }
+
+    public async Task<Domain.Model.Aggregates.Citizen?> Handle(UpdateCitizenAccountCommand command)
+    {
+        var citizen = await citizenRepository.GetByIdAsync(command.Id);
+        if (citizen == null) return null;
+
+        citizen.UpdateName(command.FirstName, command.LastName);
+        citizen.UpdateEmail(command.Email);
+        citizen.UpdateAddress(command.Street, command.Number, command.City, command.PostalCode, command.Country);
+
+        try
+        {
+            await citizenRepository.UpdateAsync(citizen);
+            await unitOfWork.CompleteAsync();
+            return citizen;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"An error occurred while updating the profile for Citizen: {e.Message}");
+            return null;
+        }
+    }
+
+    public async Task<bool> Handle(DeleteCitizenAccountCommand command)
+    {
+        var citizen = await citizenRepository.GetByIdAsync(command.Id);
+        if (citizen == null) return false;
+
+        try
+        {
+            await citizenRepository.DeleteAsync(citizen);
+            await unitOfWork.CompleteAsync();
+            return true;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"An error occurred while deleting the profile for Citizen: {e.Message}");
+            return false;
         }
     }
 }

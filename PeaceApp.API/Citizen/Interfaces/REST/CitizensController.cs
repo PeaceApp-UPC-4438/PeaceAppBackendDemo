@@ -4,6 +4,7 @@ using PeaceApp.API.Citizen.Domain.Services;
 using PeaceApp.API.Citizen.Interfaces.REST.Resources;
 using PeaceApp.API.Citizen.Interfaces.REST.Transform;
 using Microsoft.AspNetCore.Mvc;
+using PeaceApp.API.Citizen.Domain.Model.Commands;
 
 namespace PeaceApp.API.Citizen.Interfaces.REST;
 
@@ -40,5 +41,23 @@ public class CitizensController(ICitizenCommandService citizenCommandService, IC
         if (citizen == null) return NotFound();
         var citizenResource = CitizenResourceFromEntityAssembler.ToResourceFromEntity(citizen);
         return Ok(citizenResource);
+    }
+    [HttpPut("{citizenId:int}")]
+    public async Task<IActionResult> UpdateCitizen(int citizenId, UpdateCitizenResource resource)
+    {
+        var updateCitizenCommand = UpdateCitizenCommandFromResourceAssembler.ToCommandFromResource(citizenId, resource);
+        var updatedCitizen = await citizenCommandService.Handle(updateCitizenCommand);
+        if (updatedCitizen == null) return NotFound();
+        var citizenResource = CitizenResourceFromEntityAssembler.ToResourceFromEntity(updatedCitizen);
+        return Ok(citizenResource);
+    }
+
+    [HttpDelete("{citizenId:int}")]
+    public async Task<IActionResult> DeleteCitizen(int citizenId)
+    {
+        var deleteCitizenCommand = new DeleteCitizenAccountCommand(citizenId);
+        var result = await citizenCommandService.Handle(deleteCitizenCommand);
+        if (!result) return NotFound();
+        return NoContent();
     }
 }

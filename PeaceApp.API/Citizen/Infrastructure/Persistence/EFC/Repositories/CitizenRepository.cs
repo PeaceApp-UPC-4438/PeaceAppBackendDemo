@@ -12,4 +12,21 @@ public class CitizenRepository(AppDbContext context) : BaseRepository<Domain.Mod
     {
         return Context.Set<Domain.Model.Aggregates.Citizen>().Where(p => p.Email == email).FirstOrDefaultAsync();
     }
+
+    public Task<Domain.Model.Aggregates.Citizen?> GetByIdAsync(int id)
+    {
+        return Context.Set<Domain.Model.Aggregates.Citizen>().FindAsync(id).AsTask();
+    }
+
+    public async Task UpdateAsync(Domain.Model.Aggregates.Citizen citizen)
+    {
+        Context.Set<Domain.Model.Aggregates.Citizen>().Update(citizen);
+        await Context.SaveChangesAsync();
+    }
+
+    public async Task DeleteAsync(Domain.Model.Aggregates.Citizen citizen)
+    {
+        Context.Set<Domain.Model.Aggregates.Citizen>().Remove(citizen);
+        await Context.SaveChangesAsync();
+    }
 }

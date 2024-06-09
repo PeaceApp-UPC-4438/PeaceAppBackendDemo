@@ -37,4 +37,18 @@ public partial class Citizen
     public string EmailAddress => Email.Address;
 
     public string StreetAddress => Address.FullAddress;
+    public void UpdateName(string firstName, string lastName)
+    {
+        Name = new PersonName(firstName, lastName);
+    }
+
+    public void UpdateEmail(string email)
+    {
+        Email = new EmailAddress(email);
+    }
+
+    public void UpdateAddress(string street, string number, string city, string postalCode, string country)
+    {
+        Address = new StreetAddress(street, number, city, postalCode, country);
+    }
 }
