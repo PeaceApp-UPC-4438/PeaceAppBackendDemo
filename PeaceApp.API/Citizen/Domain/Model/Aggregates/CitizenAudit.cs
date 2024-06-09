@@ -3,7 +3,7 @@ using EntityFrameworkCore.CreatedUpdatedDate.Contracts;
 
 namespace PeaceApp.API.Citizen.Domain.Model.Aggregates;
 
-public partial class Profile : IEntityWithCreatedUpdatedDate
+public partial class Citizen : IEntityWithCreatedUpdatedDate
 {
     [Column("CreatedAt")] public DateTimeOffset? CreatedDate { get; set; }
 
