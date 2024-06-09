@@ -1,3 +1,4 @@
+using PeaceApp.API.Citizen.Domain.Model.Commands;
 using PeaceApp.API.Citizen.Domain.Model.ValueObjects;
 
 namespace PeaceApp.API.Citizen.Domain.Model.Aggregates;
@@ -19,7 +20,12 @@ public partial class Citizen
         Address = new StreetAddress(street, number, city, postalCode, country);
     }
 
-
+    public Citizen(CreateCitizenAccountCommand command)
+    {
+        Name = new PersonName(command.FirstName, command.LastName);
+        Email = new EmailAddress(command.Email);
+        Address = new StreetAddress(command.Street, command.Number, command.City, command.PostalCode, command.Country);
+    }
 
     public int Id { get; }
     public PersonName Name { get; private set; }
