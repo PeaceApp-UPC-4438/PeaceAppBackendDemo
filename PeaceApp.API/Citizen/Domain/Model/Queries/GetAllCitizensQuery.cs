@@ -1,3 +1,3 @@
 namespace PeaceApp.API.Citizen.Domain.Model.Queries;
 
-public record GetAllProfilesQuery();
+public record GetAllCitizensQuery();
