@@ -1,5 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using PeaceApp.API.Organization.Application.Internal.CommandServices;
+using PeaceApp.API.Organization.Application.Internal.QueryServices;
+using PeaceApp.API.Organization.Domain.Repositories;
+using PeaceApp.API.Organization.Domain.Services;
+using PeaceApp.API.Organization.Infrastructure.Persistance.EFC.Repositories;
 using PeaceApp.API.Report.Application.Internal.CommandServices;
 using PeaceApp.API.Report.Application.Internal.QueryServices;
 using PeaceApp.API.Report.Domain.Repositories;
@@ -75,6 +80,12 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IReportManagementRepository, ReportManagementRepository>();
 builder.Services.AddScoped<IReportManagementCommandService, ReportManagementCommandService>();
 builder.Services.AddScoped<IReportManagementQueryService, ReportManagementQueryService>();
+
+// Organization Bounded Context Injection Configuration
+
+builder.Services.AddScoped<IOrganizationAccountRepository, OrganizationAccountRepository>();
+builder.Services.AddScoped<IOrganizationAccountCommandService, OrganizationAccountCommandService>();
+builder.Services.AddScoped<IOrganizationAccountQueryService, OrganizationAccountQueryService>();
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
