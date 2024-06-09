@@ -1,8 +1,5 @@
-using PeaceApp.API.Citizen.Interfaces.ACL;
 using PeaceApp.API.Citizen.Domain.Model.Commands;
 using PeaceApp.API.Citizen.Domain.Model.Queries;
-using PeaceApp.API.Citizen.Domain.Model.ValueObjects;
-using PeaceApp.API.Citizen.Domain.Services;
 using PeaceApp.API.Citizen.Domain.Model.ValueObjects;
 using PeaceApp.API.Citizen.Domain.Services;
 
