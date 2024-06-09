@@ -34,7 +34,36 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
         builder.Entity<OrganizationAccount>().Property(f => f.Cellphone).IsRequired();
         builder.Entity<OrganizationAccount>().Property(f => f.Location).IsRequired();
         
-        
+        // Citizens Context
+
+        builder.Entity<Citizen.Domain.Model.Aggregates.Citizen>().HasKey(c => c.Id);
+        builder.Entity<Citizen.Domain.Model.Aggregates.Citizen>().Property(c => c.Id).IsRequired().ValueGeneratedOnAdd();
+        builder.Entity<Citizen.Domain.Model.Aggregates.Citizen>().OwnsOne(c => c.Name,
+            n =>
+            {
+                n.WithOwner().HasForeignKey("Id");
+                n.Property(c => c.FirstName).HasColumnName("FirstName");
+                n.Property(c => c.LastName).HasColumnName("LastName");
+            });
+
+        builder.Entity<Citizen.Domain.Model.Aggregates.Citizen>().OwnsOne(c => c.Email,
+            e =>
+            {
+                e.WithOwner().HasForeignKey("Id");
+                e.Property(a => a.Address).HasColumnName("EmailAddress");
+            });
+
+        builder.Entity<Citizen.Domain.Model.Aggregates.Citizen>().OwnsOne(c => c.Address,
+            a =>
+            {
+                a.WithOwner().HasForeignKey("Id");
+                a.Property(s => s.Street).HasColumnName("AddressStreet");
+                a.Property(s => s.Number).HasColumnName("AddressNumber");
+                a.Property(s => s.City).HasColumnName("AddressCity");
+                a.Property(s => s.PostalCode).HasColumnName("AddressPostalCode");
+                a.Property(s => s.Country).HasColumnName("AddressCountry");
+            });
+
         
         
         

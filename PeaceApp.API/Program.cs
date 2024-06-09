@@ -1,5 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using PeaceApp.API.Citizen.Application.Internal.CommandServices;
+using PeaceApp.API.Citizen.Application.Internal.QueryServices;
+using PeaceApp.API.Citizen.Domain.Repositories;
+using PeaceApp.API.Citizen.Domain.Services;
+using PeaceApp.API.Citizen.Infrastructure.Persistence.EFC.Repositories;
+using PeaceApp.API.Citizen.Interfaces.ACL;
+using PeaceApp.API.Citizen.Interfaces.ACL.Services;
 using PeaceApp.API.Organization.Application.Internal.CommandServices;
 using PeaceApp.API.Organization.Application.Internal.QueryServices;
 using PeaceApp.API.Organization.Domain.Repositories;
@@ -86,6 +93,13 @@ builder.Services.AddScoped<IReportManagementQueryService, ReportManagementQueryS
 builder.Services.AddScoped<IOrganizationAccountRepository, OrganizationAccountRepository>();
 builder.Services.AddScoped<IOrganizationAccountCommandService, OrganizationAccountCommandService>();
 builder.Services.AddScoped<IOrganizationAccountQueryService, OrganizationAccountQueryService>();
+
+// Citizen Bounded Context Injection Configuration
+
+builder.Services.AddScoped<ICitizenRepository, CitizenRepository>();
+builder.Services.AddScoped<ICitizenCommandService, CitizenCommandService>();
+builder.Services.AddScoped<ICitizenQueryService, CitizenQueryService>();
+builder.Services.AddScoped<ICitizensContextFacade, CitizensContextFacade>();
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
