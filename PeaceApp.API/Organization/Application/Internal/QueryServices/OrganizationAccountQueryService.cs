@@ -1,5 +1,5 @@
 using PeaceApp.API.Organization.Domain.Model.Aggregates;
-using PeaceApp.API.Organization.Domain.Queries;
+using PeaceApp.API.Organization.Domain.Model.Queries;
 using PeaceApp.API.Organization.Domain.Repositories;
 using PeaceApp.API.Organization.Domain.Services;
 

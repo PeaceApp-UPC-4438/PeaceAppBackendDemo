@@ -1,6 +1,6 @@
 using System.Net.Mime;
 using Microsoft.AspNetCore.Mvc;
-using PeaceApp.API.Organization.Domain.Queries;
+using PeaceApp.API.Organization.Domain.Model.Queries;
 using PeaceApp.API.Organization.Domain.Services;
 using PeaceApp.API.Organization.Interfaces.REST.Resources;
 using PeaceApp.API.Organization.Interfaces.REST.Transform;

@@ -1,3 +1,3 @@
-namespace PeaceApp.API.Organization.Domain.Queries;
+namespace PeaceApp.API.Organization.Domain.Model.Queries;
 
 public record GetOrganizationAccountByOrganizationNameQuery(string OrganizationName);
