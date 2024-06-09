@@ -35,4 +35,8 @@
       <None Remove="Report\Services\**" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Citizen\Interfaces\" />
+    </ItemGroup>
+
 </Project>
