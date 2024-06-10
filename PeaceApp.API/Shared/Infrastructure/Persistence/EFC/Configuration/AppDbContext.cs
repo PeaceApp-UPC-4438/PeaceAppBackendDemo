@@ -1,5 +1,7 @@
 using EntityFrameworkCore.CreatedUpdatedDate.Extensions;
 using Microsoft.EntityFrameworkCore;
+using PeaceApp.API.Communication.Domain.Model.Aggregates;
+using PeaceApp.API.Organization.Domain.Model.Aggregates;
 using PeaceApp.API.Report.Domain.Model.Aggregates;
 using PeaceApp.API.Shared.Infrastructure.Persistence.EFC.Configuration.Extensions;
 
@@ -33,6 +35,13 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
         builder.Entity<OrganizationAccount>().Property(f => f.Cellphone).IsRequired();
         builder.Entity<OrganizationAccount>().Property(f => f.Location).IsRequired();
         
+        //Communication BC
+        builder.Entity<Notification>().ToTable("Notifications");
+        builder.Entity<Notification>().HasKey(n => n.Id);
+        builder.Entity<Notification>().Property(n => n.Id).IsRequired().ValueGeneratedOnAdd();
+        builder.Entity<Notification>().Property(n => n.Message).IsRequired();
+        builder.Entity<Notification>().Property(n => n.Priority).IsRequired();
+        
         // Citizens Context
 
         builder.Entity<Citizen.Domain.Model.Aggregates.Citizen>().HasKey(c => c.Id);
@@ -63,12 +72,7 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
                 a.Property(s => s.Country).HasColumnName("AddressCountry");
             });
 
-        //Communication BC
-        builder.Entity<Notification>().ToTable("Notifications");
-        builder.Entity<Notification>().HasKey(n => n.Id);
-        builder.Entity<Notification>().Property(n => n.Id).IsRequired().ValueGeneratedOnAdd();
-        builder.Entity<Notification>().Property(n => n.Message).IsRequired();
-        builder.Entity<Notification>().Property(n => n.Priority).IsRequired();
+
 
         
         
