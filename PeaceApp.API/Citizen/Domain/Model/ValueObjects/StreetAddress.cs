@@ -1,25 +1,15 @@
-namespace PeaceApp.API.Citizen.Domain.Model.ValueObjects;
-
-public record StreetAddress(string Street, string Number, string City, string PostalCode, string Country)
+namespace PeaceApp.API.Citizen.Domain.Model.ValueObjects
 {
-    public StreetAddress() : this(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty)
+    public record StreetAddress(string Street, string Number, string City, string PostalCode, string Country)
     {
-    }
+        public StreetAddress() : this(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty) { }
 
-    public StreetAddress(string street) : this(street, string.Empty, string.Empty, string.Empty,
-        string.Empty)
-    {
-    }
+        public string Street { get; init; } = Street;
+        public string Number { get; init; } = Number;
+        public string City { get; init; } = City;
+        public string PostalCode { get; init; } = PostalCode;
+        public string Country { get; init; } = Country;
 
-    public StreetAddress(string street, string number, string city) : this(street, number, city,
-        string.Empty, string.Empty)
-    {
+        public string FullAddress => $"{Street} {Number}, {City}, {PostalCode}, {Country}";
     }
-
-    public StreetAddress(string street, string number, string city, string postalCode) : this(street, number, city, postalCode,
-        string.Empty)
-    {
-    }
-
-    public string FullAddress => $"{Street} {Number}, {City}, {PostalCode}, {Country}";
 }

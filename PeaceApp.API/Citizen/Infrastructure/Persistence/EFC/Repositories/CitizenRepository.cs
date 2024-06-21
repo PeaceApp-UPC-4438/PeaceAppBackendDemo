@@ -6,11 +6,18 @@ using PeaceApp.API.Shared.Infrastructure.Persistence.EFC.Repositories;
 
 namespace PeaceApp.API.Citizen.Infrastructure.Persistence.EFC.Repositories;
 
-public class CitizenRepository(AppDbContext context) : BaseRepository<Domain.Model.Aggregates.Citizen>(context), ICitizenRepository
+public class CitizenRepository : BaseRepository<Domain.Model.Aggregates.Citizen>, ICitizenRepository
 {
+    public CitizenRepository(AppDbContext context) : base(context)
+    {
+    }
+
     public Task<Domain.Model.Aggregates.Citizen?> FindCitizenByEmailAsync(EmailAddress email)
     {
-        return Context.Set<Domain.Model.Aggregates.Citizen>().Where(p => p.Email == email).FirstOrDefaultAsync();
+        // Compare the Address property of EmailAddress directly
+        return Context.Set<Domain.Model.Aggregates.Citizen>()
+            .Where(p => p.Email.Address == email.Address)
+            .FirstOrDefaultAsync();
     }
 
     public Task<Domain.Model.Aggregates.Citizen?> GetByIdAsync(int id)

@@ -1,5 +1,6 @@
 using PeaceApp.API.Citizen.Domain.Model.Aggregates;
 using PeaceApp.API.Citizen.Domain.Model.Commands;
+using PeaceApp.API.Citizen.Domain.Model.ValueObjects;
 using PeaceApp.API.Citizen.Domain.Repositories;
 using PeaceApp.API.Citizen.Domain.Services;
 using PeaceApp.API.Shared.Domain.Repositories;
@@ -10,6 +11,11 @@ public class CitizenCommandService(ICitizenRepository citizenRepository, IUnitOf
 {
     public async Task<Domain.Model.Aggregates.Citizen?> Handle(CreateCitizenAccountCommand command)
     {
+        var existingCitizen = await citizenRepository.FindCitizenByEmailAsync(new EmailAddress(command.Email));
+        if (existingCitizen != null)
+        {
+            throw new InvalidOperationException($"A citizen with the email {command.Email} already exists.");
+        }
         var citizen = new Domain.Model.Aggregates.Citizen(command);
         try
         {
@@ -23,7 +29,6 @@ public class CitizenCommandService(ICitizenRepository citizenRepository, IUnitOf
             return null;
         }
     }
-
     public async Task<Domain.Model.Aggregates.Citizen?> Handle(UpdateCitizenAccountCommand command)
     {
         var citizen = await citizenRepository.GetByIdAsync(command.Id);

@@ -6,7 +6,7 @@ namespace PeaceApp.API.Citizen.Domain.Repositories;
 public interface ICitizenRepository : IBaseRepository<Model.Aggregates.Citizen>
 {
     Task<Model.Aggregates.Citizen?> FindCitizenByEmailAsync(EmailAddress email);
-    Task<Model.Aggregates.Citizen?> GetByIdAsync(int id);  // Add this method
-    Task UpdateAsync(Model.Aggregates.Citizen citizen);    // Add this method
-    Task DeleteAsync(Model.Aggregates.Citizen citizen);    // Add this method
+    Task<Model.Aggregates.Citizen?> GetByIdAsync(int id);
+    Task UpdateAsync(Model.Aggregates.Citizen citizen);  
+    Task DeleteAsync(Model.Aggregates.Citizen citizen);  
 }
