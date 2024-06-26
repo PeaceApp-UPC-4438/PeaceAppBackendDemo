@@ -24,15 +24,16 @@ public class ReportManagementRepository : BaseRepository<ReportManagement>, IRep
             .ToListAsync();
     }
 
-    public async Task<IEnumerable<ReportManagement>> FindAllByDateAsync(string date)
+    // OJITO CON LOS DOS QUE VIENEN
+    public async Task<IEnumerable<ReportManagement>> FindAllByDateAsync(DateTimeOffset date)
     {
-        return await Context.Set<ReportManagement>().Where(f => f.Date == date)
+        return await Context.Set<ReportManagement>().Where(f => f.CreatedDate == date.Date)
             .ToListAsync();
     }
 
-    public async Task<IEnumerable<ReportManagement>> FindAllByDistrictAndDateAsync(string district, string date)
+    public async Task<IEnumerable<ReportManagement>> FindAllByDistrictAndDateAsync(string district, DateTimeOffset date)
     {
-        return await Context.Set<ReportManagement>().Where(f => f.District == district && f.Date == date)
+        return await Context.Set<ReportManagement>().Where(f => f.District == district && f.CreatedDate == date)
             .ToListAsync();
     }
 }

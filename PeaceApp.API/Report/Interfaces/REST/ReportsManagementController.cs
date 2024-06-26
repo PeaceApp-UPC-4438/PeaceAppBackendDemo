@@ -46,7 +46,7 @@ public class ReportsManagementController(
     
     
     [HttpGet("Date/{date}")]
-    public  async Task<ActionResult> GetAllReportsByDate(string date)
+    public  async Task<ActionResult> GetAllReportsByDate(DateTimeOffset date)
     {
         var getAllReportsByDateQuery = new GetAllReportsByDateQuery(date);
         var result = await reportManagementQueryService.Handle(getAllReportsByDateQuery);
@@ -66,7 +66,7 @@ public class ReportsManagementController(
     
     
 // Original
-    private async Task<ActionResult> GetAllReportsByDistrictAndDate(string district, string date)
+    private async Task<ActionResult> GetAllReportsByDistrictAndDate(string district, DateTimeOffset date)
     {
         var getAllReportsByDistrictAndDateQuery = new GetAllReportsByDistrictAndDateQuery(district, date);
         var result = await reportManagementQueryService.Handle(getAllReportsByDistrictAndDateQuery);
@@ -78,9 +78,9 @@ public class ReportsManagementController(
     // Esta, pero se puede cambiar
     
     [HttpGet]
-    public async Task<ActionResult> GetAllReportsFromQuery([FromQuery]string district, [FromQuery] string date)
+    public async Task<ActionResult> GetAllReportsFromQuery([FromQuery]string district, [FromQuery] DateTimeOffset date)
     {
-        return string.IsNullOrEmpty(date)
+        return date == DateTimeOffset.MinValue
             ? await GetAllReportsByDistrict(district)
             : await GetAllReportsByDistrictAndDate(district, date);
     }

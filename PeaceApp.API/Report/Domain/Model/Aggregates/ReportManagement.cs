@@ -8,7 +8,7 @@ public partial class ReportManagement
     public string KindOfReport { get; private set; }
     
     // This should be date type
-    public string Date { get; private set; }
+
     
     // Location should be a value object  with district and location
     public string District { get; private set; }
@@ -18,7 +18,6 @@ public partial class ReportManagement
     protected ReportManagement()
     {
         this.KindOfReport = string.Empty;
-        this.Date = string.Empty;
         this.District = string.Empty;
         this.Location = string.Empty;
         this.Description = string.Empty;
@@ -27,9 +26,9 @@ public partial class ReportManagement
     public ReportManagement(CreateReportCommand command)
     {
         this.KindOfReport = command.KindOfReport;
-        this.Date = command.Date;
         this.District = command.District;
         this.Location = command.Location;
         this.Description = command.Description;
     }
+    
 }

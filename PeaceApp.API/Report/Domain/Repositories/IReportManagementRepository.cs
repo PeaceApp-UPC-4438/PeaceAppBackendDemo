@@ -7,6 +7,6 @@ public interface IReportManagementRepository : IBaseRepository<ReportManagement>
 {
     Task<IEnumerable<ReportManagement>> FindAllByDistrictAsync(string district);
     Task<IEnumerable<ReportManagement>> FindAllByKindOfReportAsync(string kindOfReport);
-    Task<IEnumerable<ReportManagement>> FindAllByDateAsync(string date);
-    Task<IEnumerable<ReportManagement>> FindAllByDistrictAndDateAsync(string district, string date);
+    Task<IEnumerable<ReportManagement>> FindAllByDateAsync(DateTimeOffset date);
+    Task<IEnumerable<ReportManagement>> FindAllByDistrictAndDateAsync(string district, DateTimeOffset date);
 }
