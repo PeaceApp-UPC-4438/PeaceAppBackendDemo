@@ -6,7 +6,11 @@ public partial class ReportManagement
 {
     public int Id { get; private set; }
     public string KindOfReport { get; private set; }
+    
+    // This should be date type
     public string Date { get; private set; }
+    
+    // Location should be a value object  with district and location
     public string District { get; private set; }
     public string Location { get; private set; }
     public string Description { get; private set; }
