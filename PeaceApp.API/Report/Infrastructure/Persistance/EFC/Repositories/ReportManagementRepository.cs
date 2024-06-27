@@ -11,6 +11,10 @@ public class ReportManagementRepository : BaseRepository<ReportManagement>, IRep
     public ReportManagementRepository(AppDbContext context) : base(context)
     {
     }
+    public async Task<IEnumerable<ReportManagement>> FindAllReports()
+    {
+        return await Context.Set<ReportManagement>().ToListAsync();
+    }
 
     public async Task<IEnumerable<ReportManagement>> FindAllByDistrictAsync(string district)
     {
