@@ -22,7 +22,7 @@ public class ReportManagementQueryService(IReportManagementRepository reportMana
 
     public async Task<IEnumerable<ReportManagement>> Handle(GetAllReportsByDistrictAndDateQuery query)
     {
-        return await reportManagementRepository.FindAllByDistrictAndDateAsync(query.District, query.Date);
+        return await reportManagementRepository.FindAllByDistrictAndDateAsync(query.District, query.Date.ToString());
     }
 
     public async Task<IEnumerable<ReportManagement>> Handle(GetAllReportsByDistrictQuery query)
