@@ -8,5 +8,8 @@ public record EmailAddress
     }
 
     // Default constructor for EF Core
-    public EmailAddress() { }
+    public EmailAddress()
+    {
+        Address = string.Empty;
+    }
 }

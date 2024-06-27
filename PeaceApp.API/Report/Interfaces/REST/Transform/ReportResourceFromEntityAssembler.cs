@@ -7,7 +7,7 @@ public static class ReportResourceFromEntityAssembler
 {
     public static ReportResource ToResourceFromEntity(ReportManagement entity)
     {
-        return new ReportResource(entity.Id, entity.KindOfReport, entity.District, entity.Location,
-            entity.Description, entity.CreatedDate);
+        return new ReportResource(entity.Id, entity.Type, entity.Date, entity.Time, entity.District, entity.Location,
+            entity.Description, entity.UrlEvidence, entity.CitizenId);
     }
 }

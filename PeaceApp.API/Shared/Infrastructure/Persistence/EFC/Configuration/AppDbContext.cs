@@ -24,8 +24,13 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
         builder.Entity<ReportManagement>().ToTable("Reports");
         builder.Entity<ReportManagement>().HasKey(f => f.Id);
         builder.Entity<ReportManagement>().Property(f => f.Id).IsRequired().ValueGeneratedOnAdd();
-        builder.Entity<ReportManagement>().Property(f => f.KindOfReport).IsRequired();
-        builder.Entity<ReportManagement>().Property(f => f.Description).IsRequired();
+        builder.Entity<ReportManagement>().Property(f => f.Type).IsRequired().HasMaxLength(50);
+        builder.Entity<ReportManagement>().Property(f => f.Date).IsRequired().HasMaxLength(20);
+        builder.Entity<ReportManagement>().Property(f => f.Time).IsRequired().HasMaxLength(20);
+        builder.Entity<ReportManagement>().Property(f => f.District).IsRequired().HasMaxLength(20);
+        builder.Entity<ReportManagement>().Property(f => f.Location).IsRequired().HasMaxLength(20);
+        builder.Entity<ReportManagement>().Property(f => f.Description).IsRequired().HasMaxLength(200);
+        builder.Entity<ReportManagement>().Property(f => f.UrlEvidence).IsRequired().HasMaxLength(500);
         
         //  entity configurations for Organization Accounts
         builder.Entity<OrganizationAccount>().ToTable("OrganizationAccounts");
@@ -72,7 +77,11 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
                 a.Property(s => s.Country).HasColumnName("AddressCountry");
             });
 
-
+        builder.Entity<Citizen.Domain.Model.Aggregates.Citizen>()
+            .HasMany(c => c.Reports)
+            .WithOne(t => t.Citizen)
+            .HasForeignKey(t => t.CitizenId)
+            .HasPrincipalKey(t => t.Id);
 
         
         
