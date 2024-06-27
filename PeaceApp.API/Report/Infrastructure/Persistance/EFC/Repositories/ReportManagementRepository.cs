@@ -20,7 +20,7 @@ public class ReportManagementRepository : BaseRepository<ReportManagement>, IRep
 
     public async Task<IEnumerable<ReportManagement>> FindAllByKindOfReportAsync(string kindOfReport)
     {
-        return await Context.Set<ReportManagement>().Where(f => f.KindOfReport == kindOfReport)
+        return await Context.Set<ReportManagement>().Where(f => f.Type == kindOfReport)
             .ToListAsync();
     }
 

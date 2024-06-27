@@ -1,5 +1,6 @@
 using PeaceApp.API.Citizen.Domain.Model.Commands;
 using PeaceApp.API.Citizen.Domain.Model.ValueObjects;
+using PeaceApp.API.Report.Domain.Model.Aggregates;
 
 namespace PeaceApp.API.Citizen.Domain.Model.Aggregates;
 
@@ -27,7 +28,7 @@ public partial class Citizen
         Address = new StreetAddress(command.Street, command.Number, command.City, command.PostalCode, command.Country);
     }
 
-    public int Id { get; }
+    public int Id { get; set; }
     public PersonName Name { get; private set; }
     public EmailAddress Email { get; private set; }
     public StreetAddress Address { get; private set; }
@@ -37,6 +38,7 @@ public partial class Citizen
     public string EmailAddress => Email.Address;
 
     public string StreetAddress => Address.FullAddress;
+    public ICollection<ReportManagement> Reports { get; private set; }
     public void UpdateName(string firstName, string lastName)
     {
         Name = new PersonName(firstName, lastName);

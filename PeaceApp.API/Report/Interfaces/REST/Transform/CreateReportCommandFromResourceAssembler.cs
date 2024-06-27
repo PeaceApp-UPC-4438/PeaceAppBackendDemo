@@ -7,8 +7,14 @@ public static class CreateReportCommandFromResourceAssembler
 {
     public static CreateReportCommand ToCommandFromResource(CreateReportResource resource)
     {
-        return new CreateReportCommand(resource.KindOfReport, resource.Date, resource.District, resource.Location,
-            resource.Description);
-        
+        return new CreateReportCommand(
+            resource.Type, 
+            resource.Date, 
+            resource.Time,
+            resource.District, 
+            resource.Location,
+            resource.UrlEvidence,
+            resource.Description,
+            resource.CitizenId);
     }
 }

@@ -10,7 +10,7 @@ namespace PeaceApp.API.Report.Interfaces.REST;
 
 
 [ApiController]
-[Route("api/v1/[controller]")]
+[Route("api/v1/reports")]
 [Produces(MediaTypeNames.Application.Json)]
 public class ReportsManagementController(
     IReportManagementCommandService favoriteSourceCommandService,
@@ -18,14 +18,15 @@ public class ReportsManagementController(
     : ControllerBase
 {
     [HttpPost]
-    public async Task<ActionResult> CreateReport([FromBody] CreateReportResource resource)
+    public async Task<IActionResult> CreateReport([FromBody] CreateReportResource resource)
     {
         var createReportCommand = CreateReportCommandFromResourceAssembler.ToCommandFromResource(resource);
         var result = await favoriteSourceCommandService.Handle(createReportCommand);
-        return CreatedAtAction(nameof(GetReportById), new { id = result.Id },
+        var citizen = ReportResourceFromEntityAssembler.ToResourceFromEntity(result);
+        return CreatedAtAction(nameof(GetReportById), new { id = citizen.Id },
             ReportResourceFromEntityAssembler.ToResourceFromEntity(result));
     }
-
+    
     [HttpGet("{id}")]
     public async Task<ActionResult> GetReportById(int id)
     {
@@ -35,7 +36,7 @@ public class ReportsManagementController(
         return Ok(resource);
     }
     
-    [HttpGet("Kind/{kindOfReport}")]
+    [HttpGet("{kindOfReport}")]
     private async Task<ActionResult> GetAllReportsByKindOfReport(string kindOfReport)
     {
         var getAllReportsByKindOfReportQuery = new GetAllReportsByKindOfReportQuery(kindOfReport);
