@@ -36,6 +36,8 @@ using PeaceApp.API.IAM.Infrastructure.Persitence.EFC.Repositories;
 using PeaceApp.API.IAM.Infrastructure.Pipeline.Middleware.Extensions;
 using PeaceApp.API.IAM.Infrastructure.Tokens.JWT.Configuration;
 using PeaceApp.API.IAM.Infrastructure.Tokens.JWT.Services;
+using PeaceApp.API.IAM.Interfaces.ACL;
+using PeaceApp.API.IAM.Interfaces.ACL.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -153,6 +155,8 @@ builder.Services.AddScoped<IUserCommandService, UserCommandService>();
 builder.Services.AddScoped<IUserQueryService, UserQueryService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IHashingService, HashingService>();
+builder.Services.AddScoped<IIamContextFacade, IamContextFacade>();
+
 
 
 
