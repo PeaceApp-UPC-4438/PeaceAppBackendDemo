@@ -17,7 +17,7 @@ public class ReportManagementQueryService(IReportManagementRepository reportMana
 
     public async Task<IEnumerable<ReportManagement>> Handle(GetAllReportsByDateQuery query)
     {
-        return await reportManagementRepository.FindAllByDateAsync(query.Date);
+        return await reportManagementRepository.FindAllByDateAsync(query.Date.ToString());
     }
 
     public async Task<IEnumerable<ReportManagement>> Handle(GetAllReportsByDistrictAndDateQuery query)
