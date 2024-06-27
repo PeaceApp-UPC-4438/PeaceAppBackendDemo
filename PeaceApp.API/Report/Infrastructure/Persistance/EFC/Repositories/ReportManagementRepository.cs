@@ -27,7 +27,8 @@ public class ReportManagementRepository : BaseRepository<ReportManagement>, IRep
     // OJITO CON LOS DOS QUE VIENEN
     public async Task<IEnumerable<ReportManagement>> FindAllByDateAsync(DateTimeOffset date)
     {
-        return await Context.Set<ReportManagement>().Where(f => f.CreatedDate == date.Date)
+        return await Context.Set<ReportManagement>()
+            .Where(f => f.CreatedDate.HasValue && f.CreatedDate.Value.Date == date.Date)
             .ToListAsync();
     }
 
