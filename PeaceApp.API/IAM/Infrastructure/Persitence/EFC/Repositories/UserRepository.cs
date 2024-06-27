@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using PeaceApp.API.IAM.Domain.Model.Aggregates;
 using PeaceApp.API.IAM.Domain.Repositories;
 using PeaceApp.API.Shared.Infrastructure.Persistence.EFC.Configuration;
@@ -7,13 +8,13 @@ namespace PeaceApp.API.IAM.Infrastructure.Persitence.EFC.Repositories;
 
 public class UserRepository(AppDbContext context) : BaseRepository<User>(context), IUserRepository
 {
-    public Task<User?> FindUserByUsernameAsync(string username)
+    public async Task<User?> FindUserByUsernameAsync(string username)
     {
-        throw new NotImplementedException();
+        return await Context.Set<User>().FirstOrDefaultAsync(user => user.Username.Equals(username));
     }
 
     public bool ExistsByUserName(string username)
     {
-        throw new NotImplementedException();
+        return Context.Set<User>().Any(user => user.Username.Equals(username));
     }
 }
