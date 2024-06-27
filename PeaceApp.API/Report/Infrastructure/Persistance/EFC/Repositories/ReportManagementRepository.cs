@@ -24,7 +24,7 @@ public class ReportManagementRepository : BaseRepository<ReportManagement>, IRep
             .ToListAsync();
     }
 
-    // OJITO CON LOS DOS QUE VIENEN
+    // Be carefull with the next two
     public async Task<IEnumerable<ReportManagement>> FindAllByDateAsync(DateTimeOffset date)
     {
         return await Context.Set<ReportManagement>()

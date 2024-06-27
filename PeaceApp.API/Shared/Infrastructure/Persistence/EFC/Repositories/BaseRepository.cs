@@ -12,7 +12,12 @@ public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity> where T
 
     public async Task AddAsync(TEntity entity) => await Context.Set<TEntity>().AddAsync(entity);
 
-    public async Task<TEntity?> FindByIdAsync(int id) => await Context.Set<TEntity>().FindAsync(id);
+    public async Task<TEntity?> FindByIdAsync(int id)
+    {
+        var entity = await Context.Set<TEntity>().FindAsync(id);
+        if(entity == null) throw new Exception($"Id:{id} doesn't exist");
+        return entity;
+    }
 
     public void Update(TEntity entity) => Context.Set<TEntity>().Update(entity);
 
