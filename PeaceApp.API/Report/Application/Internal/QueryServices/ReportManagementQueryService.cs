@@ -38,4 +38,14 @@ public class ReportManagementQueryService(IReportManagementRepository reportMana
     {
         return await reportManagementRepository.FindAllByKindOfReportAsync(query.KindOfReport);
     }
+    public async Task<IEnumerable<ReportManagement>> Handle(GetAllReportsByCitizenIdQuery query)
+    {
+        return await reportManagementRepository.FindAllByCitizenIdAsync(query.CitizenId);
+    }
+
+    public async Task<ReportManagement> Handle(GetReportByIdAndCitizenIdQuery query)
+    {
+        return await reportManagementRepository.FindReportByIdAndCitizenIdAsync(query.CitizenId, query.Id);
+    }
+
 }

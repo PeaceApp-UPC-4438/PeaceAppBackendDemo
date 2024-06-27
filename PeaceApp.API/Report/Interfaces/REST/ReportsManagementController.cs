@@ -43,4 +43,21 @@ public class ReportsManagementController(
         var resource = ReportResourceFromEntityAssembler.ToResourceFromEntity(result);
         return Ok(resource);
     }
+    [HttpGet("Citizen/{citizenId}")]
+    public async Task<ActionResult> GetAllReportsByCitizenId(int citizenId)
+    {
+        var getAllReportsByCitizenIdQuery = new GetAllReportsByCitizenIdQuery(citizenId);
+        var result = await reportManagementQueryService.Handle(getAllReportsByCitizenIdQuery);
+        var resources = result.Select(ReportResourceFromEntityAssembler.ToResourceFromEntity);
+        return Ok(resources);
+    }
+    [HttpGet("{citizenId},{id}")]
+    public async Task<ActionResult> GetReportByIdAndCitizenId(int id, int citizenId)
+    {
+        var getReportByIdAndCitizenId = new GetReportByIdAndCitizenIdQuery(citizenId, id);
+        var result = await reportManagementQueryService.Handle(getReportByIdAndCitizenId);
+        var resource = ReportResourceFromEntityAssembler.ToResourceFromEntity(result);
+        return Ok(resource);
+    }
+
 }
