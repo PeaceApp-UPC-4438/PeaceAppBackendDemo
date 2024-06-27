@@ -10,4 +10,6 @@ public interface IReportManagementQueryService
     Task<IEnumerable<ReportManagement>> Handle(GetAllReportsByDistrictAndDateQuery query);
     Task<IEnumerable<ReportManagement>> Handle(GetAllReportsByDistrictQuery query);
     Task<IEnumerable<ReportManagement>> Handle(GetAllReportsByKindOfReportQuery query);
+    Task<IEnumerable<ReportManagement>> Handle(GetAllReportsByCitizenIdQuery query);
+    Task<ReportManagement> Handle(GetReportByIdAndCitizenIdQuery query);
 }

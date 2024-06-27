@@ -23,8 +23,6 @@ public class ReportManagementRepository : BaseRepository<ReportManagement>, IRep
         return await Context.Set<ReportManagement>().Where(f => f.Type == kindOfReport)
             .ToListAsync();
     }
-
-    // Be carefull with the next two
     public async Task<IEnumerable<ReportManagement>> FindAllByDateAsync(string date)
     {
         return await Context.Set<ReportManagement>().Where(f => f.Date == date)
@@ -36,5 +34,15 @@ public class ReportManagementRepository : BaseRepository<ReportManagement>, IRep
         return await Context.Set<ReportManagement>().Where(f => f.District == district && f.Date == date)
             .ToListAsync();
     }
-    
+
+    public async Task<IEnumerable<ReportManagement>> FindAllByCitizenIdAsync(int citizenId)
+    {
+        return await Context.Set<ReportManagement>().Where(f => f.CitizenId == citizenId).ToListAsync();
+    }
+
+    public async Task<ReportManagement?> FindReportByIdAndCitizenIdAsync(int citizenId, int id)
+    {
+        return await Context.Set<ReportManagement>().Where(f => f.CitizenId == citizenId && f.Id == id)
+            .FirstOrDefaultAsync();
+    }
 }

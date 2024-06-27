@@ -31,6 +31,7 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
         builder.Entity<ReportManagement>().Property(f => f.Location).IsRequired().HasMaxLength(20);
         builder.Entity<ReportManagement>().Property(f => f.Description).IsRequired().HasMaxLength(200);
         builder.Entity<ReportManagement>().Property(f => f.UrlEvidence).IsRequired().HasMaxLength(500);
+        builder.Entity<ReportManagement>().Property(f => f.CitizenId).IsRequired();
         
         //  entity configurations for Organization Accounts
         builder.Entity<OrganizationAccount>().ToTable("OrganizationAccounts");
