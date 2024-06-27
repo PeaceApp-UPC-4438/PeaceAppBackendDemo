@@ -5,7 +5,7 @@ using PeaceApp.API.Shared.Infrastructure.Persistence.EFC.Configuration;
 using PeaceApp.API.Shared.Infrastructure.Persistence.EFC.Repositories;
 
 namespace PeaceApp.API.IAM.Infrastructure.Persitence.EFC.Repositories;
-
+// OJITO
 public class UserRepository(AppDbContext context) : BaseRepository<User>(context), IUserRepository
 {
     public async Task<User?> FindUserByUsernameAsync(string username)

@@ -14,7 +14,7 @@ namespace PeaceApp.API.IAM.Interfaces.REST;
 [Produces(MediaTypeNames.Application.Json)]
 public class UsersController(IUserQueryService userQueryService) : ControllerBase
 {
-    
+
     [HttpGet("{id:int}")]
     public async Task<IActionResult> GetUserById(int id)
     {
@@ -31,6 +31,6 @@ public class UsersController(IUserQueryService userQueryService) : ControllerBas
         var getAllUsersQuery = new GetAllUsersQuery();
         var users = await userQueryService.Handle(getAllUsersQuery);
         var userResources = users.Select(UserResourceFromEntityAssembler.ToResourceFromEntity);
-        return Ok(userResources);
+        return Ok(userResources);   
     }
 }

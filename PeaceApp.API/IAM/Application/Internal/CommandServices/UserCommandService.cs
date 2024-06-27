@@ -34,7 +34,7 @@ public class UserCommandService (IUserRepository userRepository, IUnitOfWork uni
     public async Task<(User user, string token)> Handle(SignInCommand command)
     {
         var user = await userRepository.FindUserByUsernameAsync(command.Username);
-        if (user is null || hashingService.VerifyPassword(command.Password, user.PasswordHash))
+        if (user is null || !hashingService.VerifyPassword(command.Password, user.PasswordHash))
         {
             throw new Exception("invalid username or password");
         }

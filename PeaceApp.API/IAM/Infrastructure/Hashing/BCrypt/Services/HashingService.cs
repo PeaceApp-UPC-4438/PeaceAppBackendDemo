@@ -9,6 +9,7 @@ public class HashingService : IHashingService
         return BCryptNet.HashPassword(password);
     }
 
+    
     public bool VerifyPassword(string password, string passwordHash)
     {
         return BCryptNet.Verify(password, passwordHash);

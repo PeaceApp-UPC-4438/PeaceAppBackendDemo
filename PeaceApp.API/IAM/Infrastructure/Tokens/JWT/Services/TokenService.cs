@@ -34,6 +34,7 @@ public class TokenService(IOptions<TokenSettings> tokenSettings) : ITokenService
     public async Task<int?> ValidateToken(string token)
     {
         if (string.IsNullOrEmpty(token)) return null;
+
         var tokenHandler = new JsonWebTokenHandler();
         var key = Encoding.ASCII.GetBytes(_tokenSettings.Secret);
         try
@@ -42,13 +43,14 @@ public class TokenService(IOptions<TokenSettings> tokenSettings) : ITokenService
             {
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey = new SymmetricSecurityKey(key),
+                ValidateIssuer = false,
                 ValidateAudience = false,
                 ClockSkew = TimeSpan.Zero
             });
 
             var jwtToken = (JsonWebToken)tokenValidationResult.SecurityToken;
             var userId = int.Parse(jwtToken.Claims.First(claim => claim.Type == ClaimTypes.Sid).Value);
-            return userId;
+            return userId;                                                  
         }
         catch (Exception e)
         {

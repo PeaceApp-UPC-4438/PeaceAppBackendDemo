@@ -26,6 +26,16 @@ using PeaceApp.API.Communication.Application.Internal.QueryServices;
 using PeaceApp.API.Communication.Domain.Repositories;
 using PeaceApp.API.Communication.Domain.Services;
 using PeaceApp.API.Communication.Infrastructure.Persistance.EFC.Repositories;
+using PeaceApp.API.IAM.Application.Internal.CommandServices;
+using PeaceApp.API.IAM.Application.Internal.OutboundServices;
+using PeaceApp.API.IAM.Application.Internal.QueryServices;
+using PeaceApp.API.IAM.Domain.Repositories;
+using PeaceApp.API.IAM.Domain.Services;
+using PeaceApp.API.IAM.Infrastructure.Hashing.BCrypt.Services;
+using PeaceApp.API.IAM.Infrastructure.Persitence.EFC.Repositories;
+using PeaceApp.API.IAM.Infrastructure.Pipeline.Middleware.Extensions;
+using PeaceApp.API.IAM.Infrastructure.Tokens.JWT.Configuration;
+using PeaceApp.API.IAM.Infrastructure.Tokens.JWT.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -80,6 +90,28 @@ builder.Services.AddSwaggerGen(
                 }
             });
         c.EnableAnnotations();
+        c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+        {
+            In = ParameterLocation.Header,
+            Description = "Please enter token",
+            Name = "Authorization",
+            Type = SecuritySchemeType.Http,
+            BearerFormat = "JWT",
+            Scheme = "bearer"
+        });
+        c.AddSecurityRequirement(new OpenApiSecurityRequirement
+        {
+            {
+                new OpenApiSecurityScheme
+                {
+                    Reference = new OpenApiReference
+                    {
+                        Id = "Bearer", Type = ReferenceType.SecurityScheme
+                    } 
+                }, 
+                Array.Empty<string>()
+            }
+        });
     });
 
 // Configure Lowercase URLs
@@ -113,6 +145,17 @@ builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
 builder.Services.AddScoped<INotificationCommandService, NotificationCommandService>();
 builder.Services.AddScoped<INotificationQueryService, NotificationQueryService>();
 
+// IAM Bounded Context
+
+builder.Services.Configure<TokenSettings>(builder.Configuration.GetSection("TokenSettings"));
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserCommandService, UserCommandService>();
+builder.Services.AddScoped<IUserQueryService, UserQueryService>();
+builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IHashingService, HashingService>();
+
+
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -133,6 +176,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+//Add authoirization middleware to pipeline
+app.UseRequestAuthorization();
+
+
 
 app.UseHttpsRedirection();
 
