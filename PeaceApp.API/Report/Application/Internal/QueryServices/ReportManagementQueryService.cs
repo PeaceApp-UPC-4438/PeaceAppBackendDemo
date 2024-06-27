@@ -14,10 +14,14 @@ public class ReportManagementQueryService(IReportManagementRepository reportMana
     {
         return await reportManagementRepository.FindByIdAsync(query.Id);
     }
-
+    
+    public async Task<IEnumerable<ReportManagement>> Handle(GetAllReportsQuery query)
+    {
+        return await reportManagementRepository.FindAllReports();
+    }
     public async Task<IEnumerable<ReportManagement>> Handle(GetAllReportsByDateQuery query)
     {
-        return await reportManagementRepository.FindAllByDateAsync(query.Date.ToString());
+        return await reportManagementRepository.FindAllByDateAsync(query.Date);
     }
 
     public async Task<IEnumerable<ReportManagement>> Handle(GetAllReportsByDistrictAndDateQuery query)

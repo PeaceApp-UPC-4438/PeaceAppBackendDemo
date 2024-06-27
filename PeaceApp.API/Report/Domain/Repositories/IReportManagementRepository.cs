@@ -5,6 +5,7 @@ namespace PeaceApp.API.Report.Domain.Repositories;
 
 public interface IReportManagementRepository : IBaseRepository<ReportManagement>
 {
+    Task<IEnumerable<ReportManagement>> FindAllReports();
     Task<IEnumerable<ReportManagement>> FindAllByDistrictAsync(string district);
     Task<IEnumerable<ReportManagement>> FindAllByKindOfReportAsync(string kindOfReport);
     Task<IEnumerable<ReportManagement>> FindAllByDateAsync(string date);
