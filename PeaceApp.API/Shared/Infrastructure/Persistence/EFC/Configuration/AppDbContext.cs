@@ -1,6 +1,7 @@
 using EntityFrameworkCore.CreatedUpdatedDate.Extensions;
 using Microsoft.EntityFrameworkCore;
 using PeaceApp.API.Communication.Domain.Model.Aggregates;
+using PeaceApp.API.IAM.Domain.Model.Aggregates;
 using PeaceApp.API.Organization.Domain.Model.Aggregates;
 using PeaceApp.API.Report.Domain.Model.Aggregates;
 using PeaceApp.API.Shared.Infrastructure.Persistence.EFC.Configuration.Extensions;
@@ -84,6 +85,13 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
             .HasPrincipalKey(t => t.Id);
 
         
+        
+        //IAM CONTEXT//
+
+        builder.Entity<User>().HasKey(u => u.Id);
+        builder.Entity<User>().Property(u => u.Id).IsRequired().ValueGeneratedOnAdd();
+        builder.Entity<User>().Property(u => u.Username).IsRequired();
+        builder.Entity<User>().Property(u => u.PasswordHash).IsRequired();
         
         // Apply SnakeCase Naming Convention
         builder.UseSnakeCaseWithPluralizedTableNamingConvention();
