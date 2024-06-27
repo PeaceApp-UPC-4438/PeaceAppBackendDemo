@@ -48,8 +48,4 @@
       <None Remove="Report\Services\**" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="IAM\Application\Internal\QueryServices\" />
-    </ItemGroup>
-
 </Project>
