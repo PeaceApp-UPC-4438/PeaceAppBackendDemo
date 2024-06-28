@@ -19,6 +19,8 @@ public abstract class BaseRepository<TEntity> : IBaseRepository<TEntity> where T
         return entity;
     }
 
+    public async Task<TEntity?> FindAll() => await Context.Set<TEntity>().FirstOrDefaultAsync();
+
     public void Update(TEntity entity) => Context.Set<TEntity>().Update(entity);
 
     public void Remove(TEntity entity) => Context.Set<TEntity>().Remove(entity);

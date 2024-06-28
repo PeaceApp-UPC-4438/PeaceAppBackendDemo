@@ -19,6 +19,6 @@ public class CitizenQueryService(ICitizenRepository citizenRepository) : ICitize
 
     public async Task<Domain.Model.Aggregates.Citizen?> Handle(GetCitizenByIdQuery query)
     {
-        return await citizenRepository.FindByIdAsync(query.ProfileId);
+        return await citizenRepository.FindByIdAsync(query.CitizenId);
     }
 }
