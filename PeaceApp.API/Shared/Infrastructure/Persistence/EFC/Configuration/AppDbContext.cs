@@ -28,8 +28,8 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
         builder.Entity<ReportManagement>().Property(f => f.Type).IsRequired().HasMaxLength(50);
         builder.Entity<ReportManagement>().Property(f => f.Date).IsRequired().HasMaxLength(20);
         builder.Entity<ReportManagement>().Property(f => f.Time).IsRequired().HasMaxLength(20);
-        builder.Entity<ReportManagement>().Property(f => f.District).IsRequired().HasMaxLength(20);
-        builder.Entity<ReportManagement>().Property(f => f.Location).IsRequired().HasMaxLength(20);
+        builder.Entity<ReportManagement>().Property(f => f.District).IsRequired().HasMaxLength(50);
+        builder.Entity<ReportManagement>().Property(f => f.Location).IsRequired().HasMaxLength(50);
         builder.Entity<ReportManagement>().Property(f => f.Description).IsRequired().HasMaxLength(200);
         builder.Entity<ReportManagement>().Property(f => f.UrlEvidence).IsRequired().HasMaxLength(500);
         builder.Entity<ReportManagement>().Property(f => f.CitizenId).IsRequired();

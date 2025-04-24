@@ -46,6 +46,17 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowViteDev", policy =>
+    {
+        policy.WithOrigins("http://localhost:5173")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+
+
 builder.Services.AddControllers( options => options.Conventions.Add(new KebabCaseRouteNamingConvention()));
 
 // Add Database Connection
@@ -187,6 +198,10 @@ app.UseRequestAuthorization();
 
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowViteDev");
+
+app.UseRequestAuthorization();
 
 app.UseAuthorization();
 
