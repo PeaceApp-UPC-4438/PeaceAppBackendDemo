@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: PeaceApp.API/Dockerfile
     environment:
-      peaceDbConnection: Server=sweet-manager_mysql;Database=sweetmanager;User=root;Password=securepassword123
+      peaceDbConnection: ${DB_URL}
     restart: always
   # sweet-manager_mysql:
   #   image: 'mysql:latest'
