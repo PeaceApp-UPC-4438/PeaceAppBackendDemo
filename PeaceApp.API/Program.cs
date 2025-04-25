@@ -62,6 +62,13 @@ builder.Services.AddControllers( options => options.Conventions.Add(new KebabCas
 // Add Database Connection
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
+var connectionStringFromEnvironment = Environment.GetEnvironmentVariable("peaceDbConnection");
+
+if (connectionStringFromEnvironment != null)
+{
+    connectionString = connectionStringFromEnvironment;
+}
+
 // Configure Database Context and Logging Levels
 
 builder.Services.AddDbContext<AppDbContext>(
